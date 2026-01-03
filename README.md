@@ -7,8 +7,7 @@ Built with **HTML, CSS, JS** for the frontend and **Node.js** backend for AI int
 
 ## Demo Screenshot
 
-![Psyduck Chatbot](<img width="1920" height="948" alt="image" src="https://github.com/user-attachments/assets/0bb2c3e3-973b-4206-ad19-977602d6e4ec" />
-)  
+![Psyduck Chatbot](screenshot_web.png)  
 
 ---
 
