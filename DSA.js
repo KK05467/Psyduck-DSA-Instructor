@@ -1,7 +1,9 @@
-// dsa.js
 import { GoogleGenAI } from "@google/genai";
+import dotenv from "dotenv";
 
-const ai = new GoogleGenAI({ apiKey: "AIzaSyA2FKN-tp12xUzwbHVgA7YaAPp56oaGyoc" });
+dotenv.config();  // Load .env variables
+
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export async function askDSA(question) {
   try {
