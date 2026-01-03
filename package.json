@@ -1,0 +1,26 @@
+{
+  "name": "gen-ai",
+  "version": "1.0.0",
+  "description": "Generaive AI",
+  "homepage": "https://github.com/KK05467/Generative-AI#readme",
+  "bugs": {
+    "url": "https://github.com/KK05467/Generative-AI/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KK05467/Generative-AI.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "LLM.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@google/genai": "^1.34.0",
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "readline-sync": "^1.4.10"
+  }
+}
