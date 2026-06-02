@@ -1,22 +1,22 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 import { askDSA } from "./DSA.js";
 
 const app = express();
 
-// Middleware
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname));
 
-// Health check route
 app.get("/", (req, res) => {
-  res.json({
-    status: "success",
-    message: "PsyDuck is Running",
-  });
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// Ask AI route
 app.post("/ask", async (req, res) => {
   try {
     const { question } = req.body;
@@ -24,27 +24,26 @@ app.post("/ask", async (req, res) => {
     if (!question) {
       return res.status(400).json({
         success: false,
-        answer: "Please provide a question.",
+        answer: "Please enter a question.",
       });
     }
 
     const answer = await askDSA(question);
 
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       answer,
     });
   } catch (err) {
     console.error("Server Error:", err);
 
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
       answer: "psy-psy… API failed 🌀",
     });
   }
 });
 
-// 404 handler
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -52,9 +51,8 @@ app.use((req, res) => {
   });
 });
 
-// Port for local + deployment
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

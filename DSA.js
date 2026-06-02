@@ -1,16 +1,19 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI({
+  apiKey: process.env.API_KEY,
+});
 
 export async function askDSA(question) {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      contents: question
+      contents: question,
     });
+
     return response.text;
   } catch (err) {
     console.error("Error in askDSA:", err);
-    return "psy-psy… AI is confused 🌀";
+    return "psy-psy… Psyduck is confused 🌀";
   }
 }
