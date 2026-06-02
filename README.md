@@ -11,6 +11,12 @@ Built with **HTML, CSS, JS** for the frontend and **Node.js** backend for AI int
 
 ---
 
+## Project Link
+
+https://psyduck-dsa-instructor.onrender.com/
+
+---
+
 ## Features
 
 - 🧠 **DSA Questions** → Uses AI to provide answers.  
