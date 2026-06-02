@@ -1,16 +1,24 @@
-const askBtn = document.getElementById("askBtn");
-const questionInput = document.getElementById("question");
-const answerDiv = document.getElementById("answer");
+const chat = document.getElementById("chat");
+const input = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
 
-askBtn.addEventListener("click", async () => {
-  const question = questionInput.value.trim();
+function addMessage(text, sender) {
+  const div = document.createElement("div");
+  div.classList.add("msg", sender);
+  div.textContent = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
 
-  if (!question) {
-    answerDiv.innerText = "Please enter a question.";
-    return;
-  }
+async function askPsyduck() {
+  const question = input.value.trim();
 
-  answerDiv.innerText = "Thinking...";
+  if (!question) return;
+
+  addMessage(question, "user");
+  input.value = "";
+
+  addMessage("Psyduck is thinking... 🌀", "bot");
 
   try {
     const response = await fetch("/ask", {
@@ -18,16 +26,33 @@ askBtn.addEventListener("click", async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ question }),
+      body: JSON.stringify({
+        question,
+      }),
     });
 
     const data = await response.json();
 
-    answerDiv.innerText =
-      data.answer || "No response received.";
+    chat.lastChild.remove();
+
+    addMessage(
+      data.answer || "psy-psy... no answer received 🌀",
+      "bot"
+    );
   } catch (error) {
+    chat.lastChild.remove();
+    addMessage(
+      "psy-psy... server connection failed 🌀",
+      "bot"
+    );
     console.error(error);
-    answerDiv.innerText =
-      "Failed to connect to Psyduck 🌀";
+  }
+}
+
+sendBtn.addEventListener("click", askPsyduck);
+
+input.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    askPsyduck();
   }
 });
